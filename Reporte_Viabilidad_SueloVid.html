@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Técnico de Viabilidad de Suelo — SueloVid</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #090d16, #111827);
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-title h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(to right, #0ea5e9, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .header-title p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            font-size: 13px;
+        }
+
+        .metadata-item span {
+            font-weight: bold;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verdict-box {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #ff8e8e;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 6px solid var(--danger);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+        }
+
+        .verdict-box h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-top: 0;
+            font-size: 18px;
+            text-transform: uppercase;
+            color: var(--danger);
+        }
+
+        .verdict-box p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 35px;
+        }
+
+        .report-table th {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            padding: 14px 10px;
+            font-size: 12px;
+            text-align: left;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+        }
+
+        .report-table td {
+            padding: 16px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .status-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .status-optimal {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .status-warning {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .status-danger {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .image-caption {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            font-size: 13px;
+        }
+
+        .signature-line {
+            border-top: 1px solid var(--border-color);
+            width: 240px;
+            text-align: center;
+            padding-top: 8px;
+            margin-top: 40px;
+            color: var(--text-muted);
+        }
+        
+        .signature-line strong {
+            color: var(--text-main);
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-title">
+            <h1>Informe Técnico de Viabilidad de Suelo</h1>
+            <p>Evaluación de Aptitud para el Cultivo de Vid — Blvd. 2000</p>
+        </div>
+    </header>
+
+    <div class="metadata-grid">
+        <div class="metadata-item"><span>Proyecto:</span> Aptitud de Suelo Blvd. 2000 (Tijuana, B.C.)</div>
+        <div class="metadata-item"><span>Dispositivo:</span> Sensor de Suelo ST03 (6 en 1)</div>
+        <div class="metadata-item"><span>Responsable:</span> Armenta M. Emili Janeht</div>
+        <div class="metadata-item"><span>Científico de Datos:</span> Luis Armando Triche Ramírez</div>
+        <div class="metadata-item"><span>Fecha de Emisión:</span> Junio 2026</div>
+        <div class="metadata-item"><span>Muestras Reales:</span> Consolidado de 38 Lecturas de Campo</div>
+        <div class="metadata-item"><span>Modelo Técnico:</span> Clasificación KNN (k=5)</div>
+    </div>
+
+    <div class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        1. Resumen de Viabilidad KNN
+    </div>
+    <div class="verdict-box">
+        <h3>REPORTE EJECUTIVO DE VIABILIDAD AGRÍCOLA - BLVD 2000</h3>
+        <p style="font-family: 'Space Grotesk', monospace; line-height: 1.7; color: var(--text-main);">
+            <strong>ÍNDICE DE VIABILIDAD CALCULADO: 40.0%</strong><br>
+            <span style="color: #ff6b6b; font-weight: bold;">❌ VEREDICTO: TERRENO DE ALTO RIESGO / NO APTO ACTUALMENTE.</span><br>
+            <strong>Recomendación:</strong> Detener inversión en plantío de vid hasta acondicionar el suelo. Se requiere tratamiento intensivo de la tierra para mitigar riesgos de pérdida.
+            <br><br>
+            <strong>DESGLOSE DE VARIABLES DEL SENSOR ST03:</strong><br>
+            1. <strong>pH del Suelo:</strong> 7.30<br>
+               &nbsp;&nbsp;-&gt; Excelente. Permite la correcta absorción de nutrientes.<br>
+            2. <strong>Humedad del Suelo:</strong> 53.53%<br>
+               &nbsp;&nbsp;-&gt; Riesgo. Suelo demasiado húmedo/encharcado para la vid.<br>
+            3. <strong>Temperatura Radicular:</strong> 26.14°C<br>
+               &nbsp;&nbsp;-&gt; Riesgo. Temperatura fuera de la zona de confort de la planta.<br>
+            4. <strong>Luz Solar Receptada:</strong> 12,568 LUX<br>
+               &nbsp;&nbsp;-&gt; Riesgo. Zona muy sombreada, afectará la maduración de la uva.<br>
+            5. <strong>Humedad Ambiental:</strong> 48.42%<br>
+               &nbsp;&nbsp;-&gt; Excelente. Clima seco que evita la proliferación de hongos.<br>
+            6. <strong>Fertilidad (Conductividad):</strong> 139.50 uS/cm<br>
+               &nbsp;&nbsp;-&gt; Indicador base de sales minerales disponibles. Se ajustará con fertirriego.
+        </p>
+    </div>
+
+    <div class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        2. Contraste de Variables y Parámetros de Suelo
+    </div>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>Variable Analizada</th>
+                <th style="text-align: center;">Resultado (Promedio)</th>
+                <th style="text-align: center;">Idóneo</th>
+                <th style="text-align: center;">Estado</th>
+                <th>Impacto Fisiológico</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>pH del Suelo</strong></td>
+                <td style="text-align: center; font-weight: bold; color: var(--primary);">7.30 pH</td>
+                <td style="text-align: center;">6.00 — 7.50</td>
+                <td style="text-align: center;"><span class="status-badge status-optimal">ÓPTIMO</span></td>
+                <td>Excelente. Permite la correcta absorción de nutrientes.</td>
+            </tr>
+            <tr>
+                <td><strong>Humedad del Suelo</strong></td>
+                <td style="text-align: center; font-weight: bold; color: var(--danger);">53.53 %</td>
+                <td style="text-align: center;">&lt; 40.0 %</td>
+                <td style="text-align: center;"><span class="status-badge status-danger">EXCESO</span></td>
+                <td>Riesgo de asfixia radicular por saturación hídrica.</td>
+            </tr>
+            <tr>
+                <td><strong>Luz Solar</strong></td>
+                <td style="text-align: center; font-weight: bold; color: var(--danger);">12,568 LUX</td>
+                <td style="text-align: center;">&gt; 50,000 LUX</td>
+                <td style="text-align: center;"><span class="status-badge status-danger">BAJO</span></td>
+                <td>Baja radiación; limita la fotosíntesis y azúcares.</td>
+            </tr>
+            <tr>
+                <td><strong>Temperatura Radicular</strong></td>
+                <td style="text-align: center; font-weight: bold; color: var(--warning);">26.14 °C</td>
+                <td style="text-align: center;">15.00 — 25.00</td>
+                <td style="text-align: center;"><span class="status-badge status-warning">ALTO</span></td>
+                <td>Ligero estrés térmico en el sistema de raíces.</td>
+            </tr>
+            <tr>
+                <td><strong>Humedad Ambiental</strong></td>
+                <td style="text-align: center; font-weight: bold; color: var(--primary);">48.42 %</td>
+                <td style="text-align: center;">&lt; 50.0 %</td>
+                <td style="text-align: center;"><span class="status-badge status-optimal">ÓPTIMO</span></td>
+                <td>Clima seco; previene la proliferación de hongos.</td>
+            </tr>
+            <tr>
+                <td><strong>Fertilidad (Conductividad)</strong></td>
+                <td style="text-align: center; font-weight: bold; color: var(--danger);">139.50 uS/cm</td>
+                <td style="text-align: center;">800 — 1500</td>
+                <td style="text-align: center;"><span class="status-badge status-danger">BAJO</span></td>
+                <td>Deficiencia mineral severa; requiere plan de fertirriego.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="21" x2="9" y2="9"/><line x1="3" y1="14" x2="21" y2="14"/></svg>
+        3. Análisis Gráfico de Campo
+    </div>
+    
+    <div class="image-container">
+        <img src="dispersion_viabilidad.png" alt="Gráfico 1: Zona de Viabilidad para la Vid">
+        <div class="image-caption">Figura 1: Gráfico de Dispersión (pH vs Humedad del Suelo) que delimita el rango de aptitud de la parcela.</div>
+    </div>
+
+    <div class="image-container">
+        <img src="matriz_correlacion.png" alt="Gráfico 2: Matriz de Correlación">
+        <div class="image-caption">Figura 2: Matriz de Correlación de Pearson que muestra la dependencia lineal entre las variables del suelo y la viabilidad.</div>
+    </div>
+
+    <div class="image-container">
+        <img src="pairplot_multivariante.png" alt="Gráfico 3: Análisis Multivariante PairPlot">
+        <div class="image-caption">Figura 3: Matriz de Dispersión Multivariante (PairPlot 7x7) que representa la distribución y separación de las 38 muestras de campo reales.</div>
+    </div>
+
+    <div class="section-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        4. Conclusiones y Recomendaciones Técnicas
+    </div>
+    <div>
+        <ul>
+            <li><strong>Gestión de Riego y Drenaje:</strong> Se recomienda diseñar canales de drenaje profundo para descender la humedad del suelo a niveles inferiores al 40%, previniendo la asfixia de la raíz.</li>
+            <li><strong>Acondicionamiento Mineral:</strong> Es imperativo implementar un programa de fertirriego balanceado (NPK) para elevar la conductividad eléctrica del suelo sobre los 800 uS/cm.</li>
+            <li><strong>Exposición Solar:</strong> Reorientar la alineación del enrejado de las plantas para optimizar la exposición de la canopia a las horas de insolación máxima.</li>
+        </ul>
+    </div>
+
+    <div class="signatures">
+        <div class="signature-line">
+            <strong>Armenta M. Emili Janeht</strong><br>
+            Responsable de Campo y Mediciones
+        </div>
+        <div class="signature-line">
+            <strong>Luis Armando Triche Ramírez</strong><br>
+            Científico de Datos / Modelado
+        </div>
+        <div class="signature-line">
+            <strong>Departamento de Agronomía</strong><br>
+            Revisor Técnico
+        </div>
+    </div>
+
+    <footer>
+        Informe Técnico y Modelado — Desarrollado por Luis Armando Triche Ramírez (Científico de Datos). Tijuana, B.C., 2026.
+    </footer>
+</div>
+
+</body>
+</html>
