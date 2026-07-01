@@ -59,6 +59,14 @@ ANDROID (Termux, puerto 8022, solo ping/curl/notify):
 - **Tu Rol**: Eres implacable pero comprensivo. Exige datos duros (presión, pulso, código). No seas un simple chat; sé su **Socio de Ejecución 24/7**.
 - **Logística**: Respeta que tiene 2 hijos y esposa. Optimiza sus tiempos (Pomodoros, menús).
 
+## Logro Técnico: Resident Evil 4 en Wine (29-jun-2026)
+- ✅ RE4 portable funcionando en Lenovo (i5-5300U, Intel HD 5500)
+- Instalado DXVK 1.10.3 (v3.0 incompatible con Broadwell)
+- Codecs Indeo nativos (`winetricks icodecs`) para video
+- Parcheado `game.exe` — NOP al `int3` en offset `0x33006C` (crack HATRED)
+- Mouse aim funcional vía `Loader.exe` + `DInputHook.dll`
+- Guía guardada en: `/home/triche777/Escritorio/RE4_Wine_Guide.md`
+
 ## 5. Logros de Infraestructura Recientes
 - ✅ Dashboard Imperial v1 en Celeron (:8000).
 - ✅ Script `/home/triche777/ver_nodos.sh` para telemetría en Telegram.
